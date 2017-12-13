@@ -2,70 +2,69 @@
 
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] private int levelLength = 200;
-    [SerializeField] private int startPlatformLength = 5;
-    [SerializeField] private int endPlatformLength = 5;
-    [SerializeField] private int distanceBetweenPlatforms = 2;
+    [SerializeField] private int levelLength;
+
+    [SerializeField] private int startPlatformLength = 5, endPlatformLength = 5;
+
+    [SerializeField] private int distanceBetweenPlatforms;
 
     [SerializeField] private Transform platformPrefab, platformParent;
 
-    [SerializeField] private Transform monsterPrefab, monsterParent;
+//    [SerializeField] private Transform monster, monsterParent;
 
     [SerializeField] private Transform healthCollectable, healthCollectableParent;
 
     [SerializeField] private float platformPositionMinY = 0f, platformPositionMaxY = 10f;
 
-    [SerializeField] private int platformLengthMin = 1, platformLenghtMax = 4;
+    [SerializeField] private int platformLengthMin = 1, platformLengthMax = 4;
 
-    [SerializeField] private float chanceForMonsterExistence = 0.25f, chanceForCollectableExistence = 0.1f;
+    [SerializeField] private float chanceForMonsterExistence = 0.25f, chanceForCollectbaleExistence = 0.1f;
 
     [SerializeField] private float healthCollectableMinY = 1f, healthCollectableMaxY = 3f;
-
-    private float platformLastPositionX;
 
 
     private enum PlatformType
     {
         None,
-        Flat,
+        Flat
     }
 
     private class PlatformPositionInfo
     {
-        public PlatformType platformType;
+        public PlatformType platfromType;
         public float positionY;
         public bool hasMonster;
         public bool hasHealthCollectable;
 
-        public PlatformPositionInfo(PlatformType type, float posY, bool has_Monster, bool hasCollectable)
+        public PlatformPositionInfo(PlatformType type, float posY, bool has_monster, bool has_collectable)
         {
-            platformType = type;
+            platfromType = type;
             positionY = posY;
-            hasMonster = has_Monster;
-            hasHealthCollectable = hasCollectable;
+            hasMonster = has_monster;
+            hasHealthCollectable = has_collectable;
         }
-    }
+    } // class PlatformPositionInfo
 
     void Start()
     {
         GenerateLevel();
     }
 
-    void FillOutPositionInfo(PlatformPositionInfo[] platformInfos)
+    void FillOutPositionInfo(PlatformPositionInfo[] platformInfo)
     {
         int currentPlatformInfoIndex = 0;
 
         for (int i = 0; i < startPlatformLength; i++)
         {
-            platformInfos[currentPlatformInfoIndex].platformType = PlatformType.Flat;
-            platformInfos[currentPlatformInfoIndex].positionY = 0f;
+            platformInfo[currentPlatformInfoIndex].platfromType = PlatformType.Flat;
+            platformInfo[currentPlatformInfoIndex].positionY = 0f;
 
             currentPlatformInfoIndex++;
         }
 
         while (currentPlatformInfoIndex < levelLength - endPlatformLength)
         {
-            if (platformInfos[currentPlatformInfoIndex - 1].platformType != PlatformType.None)
+            if (platformInfo[currentPlatformInfoIndex - 1].platfromType != PlatformType.None)
             {
                 currentPlatformInfoIndex++;
                 continue;
@@ -73,17 +72,18 @@ public class LevelGenerator : MonoBehaviour
 
             float platformPositionY = Random.Range(platformPositionMinY, platformPositionMaxY);
 
-            int platformLength = Random.Range(platformLengthMin, platformLenghtMax);
+            int platformLength = Random.Range(platformLengthMin, platformLengthMax);
+
 
             for (int i = 0; i < platformLength; i++)
             {
                 bool has_Monster = (Random.Range(0f, 1f) < chanceForMonsterExistence);
-                bool has_healthCollectable = (Random.Range(0f, 1f) < chanceForCollectableExistence);
+                bool has_healthCollectable = (Random.Range(0f, 1f) < chanceForCollectbaleExistence);
 
-                platformInfos[currentPlatformInfoIndex].platformType = PlatformType.Flat;
-                platformInfos[currentPlatformInfoIndex].positionY = platformPositionY;
-                platformInfos[currentPlatformInfoIndex].hasMonster = has_Monster;
-                platformInfos[currentPlatformInfoIndex].hasHealthCollectable = has_healthCollectable;
+                platformInfo[currentPlatformInfoIndex].platfromType = PlatformType.Flat;
+                platformInfo[currentPlatformInfoIndex].positionY = platformPositionY;
+                platformInfo[currentPlatformInfoIndex].hasMonster = has_Monster;
+                platformInfo[currentPlatformInfoIndex].hasHealthCollectable = has_healthCollectable;
 
                 currentPlatformInfoIndex++;
 
@@ -96,51 +96,55 @@ public class LevelGenerator : MonoBehaviour
 
             for (int i = 0; i < endPlatformLength; i++)
             {
-                platformInfos[currentPlatformInfoIndex].platformType = PlatformType.Flat;
-                platformInfos[currentPlatformInfoIndex].positionY = 0f;
+                platformInfo[currentPlatformInfoIndex].platfromType = PlatformType.Flat;
+                platformInfo[currentPlatformInfoIndex].positionY = 0f;
 
                 currentPlatformInfoIndex++;
             }
-        } // end while loop
+        } // while loop
     }
 
-    void CreatePlatformFromPositionInfo(PlatformPositionInfo[] platformPositionInfos)
+    void CreatePlatformsFromPositionInfo(PlatformPositionInfo[] platformPositionInfo)
     {
-        for (int i = 0; i < platformPositionInfos.Length; i++)
+        for (int i = 0; i < platformPositionInfo.Length; i++)
         {
-            PlatformPositionInfo positionInfo = platformPositionInfos[i];
+            PlatformPositionInfo positionInfo = platformPositionInfo[i];
 
-            if (positionInfo.platformType == PlatformType.None)
+            if (positionInfo.platfromType == PlatformType.None)
             {
-                continue; // if none skip below code
+                continue;
             }
 
-            Vector3 platformPosition = new Vector3(distanceBetweenPlatforms * i, positionInfo.positionY, 0);
+            Vector3 platformPosition;
 
-            // save the position x for later use
+            // here we are going to check if the game is started or not
+            platformPosition = new Vector3(distanceBetweenPlatforms * i, positionInfo.positionY, 0);
+
+            // save the platform position x for later use
+//            platformLastPositionX = platformPosition.x;
+
             Transform createBlock = (Transform) Instantiate(platformPrefab, platformPosition, Quaternion.identity);
-
             createBlock.parent = platformParent;
 
             if (positionInfo.hasMonster)
             {
             }
+
             if (positionInfo.hasHealthCollectable)
             {
             }
-        }
+        } // for loop
     }
 
-    void GenerateLevel()
+    public void GenerateLevel()
     {
-        PlatformPositionInfo[] platformInfos = new PlatformPositionInfo[levelLength];
-
-        for (int i = 0; i < platformInfos.Length; i++)
+        PlatformPositionInfo[] platformInfo = new PlatformPositionInfo[levelLength];
+        for (int i = 0; i < platformInfo.Length; i++)
         {
-            platformInfos[i] = new PlatformPositionInfo(PlatformType.None, -1f, false, false);
+            platformInfo[i] = new PlatformPositionInfo(PlatformType.None, -1f, false, false);
         }
 
-        FillOutPositionInfo(platformInfos);
-        CreatePlatformFromPositionInfo(platformInfos);  
+        FillOutPositionInfo(platformInfo);
+        CreatePlatformsFromPositionInfo(platformInfo);
     }
 }
