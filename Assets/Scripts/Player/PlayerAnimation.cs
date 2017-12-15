@@ -2,8 +2,8 @@
 
 public class PlayerAnimation : MonoBehaviour
 {
+    [SerializeField] GameObject smokeFx;
     private Animation anim;
-
 
     void Awake()
     {
@@ -16,6 +16,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void DidJump()
     {
+        Instantiate(smokeFx, transform.position, Quaternion.identity);
         anim.Play(Tags.PLAYER_JUMP);
         anim.PlayQueued(Tags.PLAYER_JUMP_FALL);
     }

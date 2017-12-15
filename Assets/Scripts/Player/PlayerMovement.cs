@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform groundCheckPosition;
     [SerializeField] float radius = 0.5f;
     [SerializeField] LayerMask groundLayer;
-
+    [SerializeField] private GameObject smokePosition;
     private Rigidbody myBody;
     private bool playerJumped;
     private bool isGrounded;
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         myBody = GetComponent<Rigidbody>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        smokePosition.SetActive(false);
     }
 
     void Start()
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         gameStarted = true;
+        smokePosition.SetActive(true);
         playerAnimation.PlayRun();
     }
 
