@@ -3,7 +3,7 @@
     // Tags
     public static string PLAYER_TAG = "Player";
     public static string PLATFORM_TAG = "Platform";
-
+    public static string BACKGROUND_TAG = "Background";
 
     // Player Animation Tags
     public static string PLAYER_IDLE = "idle";

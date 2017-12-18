@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour
         playerTarget = GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG).transform;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (playerTarget)
         {

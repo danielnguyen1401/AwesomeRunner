@@ -17,12 +17,14 @@ public class PlayerMovement : MonoBehaviour
     private bool canJumpDouble;
     private bool gameStarted;
     private PlayerAnimation playerAnimation;
+    private BGScroller bgScroller;
 
     void Awake()
     {
         myBody = GetComponent<Rigidbody>();
         playerAnimation = GetComponent<PlayerAnimation>();
         smokePosition.SetActive(false);
+        bgScroller = GameObject.FindGameObjectWithTag(Tags.BACKGROUND_TAG).GetComponent<BGScroller>();
     }
 
     void Start()
@@ -71,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         gameStarted = true;
+
+        bgScroller.canScroll = true;
         smokePosition.SetActive(true);
         playerAnimation.PlayRun();
     }
