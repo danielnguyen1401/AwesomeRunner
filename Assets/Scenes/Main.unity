@@ -683,6 +683,7 @@ GameObject:
   - component: {fileID: 308473344}
   - component: {fileID: 308473349}
   - component: {fileID: 308473343}
+  - component: {fileID: 308473351}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -898,6 +899,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &308473351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 308473342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122ad52576f89444e9bd487f613bf156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceBeforeNewPlatform: 120
 --- !u!1 &342895617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1285,47 @@ Transform:
   m_Father: {fileID: 855476652}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &650657494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 650657496}
+  - component: {fileID: 650657495}
+  m_Layer: 14
+  m_Name: More Platforms
+  m_TagString: MorePlatforms
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &650657495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 650657494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 20, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &650657496
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 650657494}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 120, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &651731980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraLerpTime: 0.05
-  offsetX: 10
+  offsetX: 7
   offsetZ: -15
   constantY: 5
 --- !u!1 &685564806
@@ -2019,7 +2073,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1084179718}
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0.4, y: 0, z: 34.37}
+  m_LocalPosition: {x: 0.4, y: 0, z: 35.01}
   m_LocalScale: {x: 8, y: 1, z: 4.500002}
   m_Children: []
   m_Father: {fileID: 1883745151}
