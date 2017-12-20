@@ -4,9 +4,10 @@
     public static string PLAYER_TAG = "Player";
 
     public static string PLATFORM_TAG = "Platform";
-
     public static string BACKGROUND_TAG = "Background";
     public static string MORE_PLATFORM_TAG = "MorePlatforms";
+    public static string HEALTH_TAG = "Health";
+    public static string MONSTER_TAG = "Monster";
 
     // Game object
     public static string LEVEL_GENERATOR_OBJ = "Level Generator";
