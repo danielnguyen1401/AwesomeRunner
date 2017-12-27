@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 111315849175295222}
   - component: {fileID: 54449174087460568}
   - component: {fileID: 136650467348482918}
+  - component: {fileID: 114748871047779608}
   m_Layer: 13
   m_Name: Monster
   m_TagString: Monster
@@ -1048,7 +1049,24 @@ Animation:
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
-  m_CullingType: 1
+  m_CullingType: 0
+--- !u!114 &114748871047779608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546402048237518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034e3568bdd78994bbf0e00ab0bf334d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathFx: {fileID: 0}
+  bullet: {fileID: 4944800814059856, guid: 0acd1bc929b2bec4b98d69b4fd8ad7af, type: 2}
+  distanceFromPlayerToStartMove: 20
+  movementSpeedMin: 2
+  movementSpeedMax: 5
+  canShoot: 1
 --- !u!136 &136650467348482918
 CapsuleCollider:
   m_ObjectHideFlags: 1

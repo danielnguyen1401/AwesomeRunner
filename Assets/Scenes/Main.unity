@@ -2792,7 +2792,7 @@ MonoBehaviour:
   levelLength: 100
   startPlatformLength: 2
   endPlatformLength: 3
-  distanceBetweenPlatforms: 3
+  distanceBetweenPlatforms: 6
   platformPrefab: {fileID: 4631674622587484, guid: 82ed22698f09f7b47915bc715cb1c74c,
     type: 2}
   platformParent: {fileID: 685564807}
@@ -2801,10 +2801,10 @@ MonoBehaviour:
   healthCollectable: {fileID: 0}
   healthCollectableParent: {fileID: 0}
   platformPositionMinY: 0
-  platformPositionMaxY: 0
-  platformLengthMin: 1
+  platformPositionMaxY: 3
+  platformLengthMin: 0
   platformLengthMax: 3
-  chanceForMonsterExistence: 1
+  chanceForMonsterExistence: 0.5
   chanceForCollectbaleExistence: 0.1
   healthCollectableMinY: 1
   healthCollectableMaxY: 3

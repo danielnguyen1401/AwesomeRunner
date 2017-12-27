@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             canJumpDouble = false;
             myBody.AddForce(new Vector3(0, secondJumpPower, 0));
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        else if (Input.GetKeyUp(KeyCode.Space) && isGrounded)
         {
             playerAnimation.DidJump();
             myBody.AddForce(new Vector3(0, jumpPower, 0));

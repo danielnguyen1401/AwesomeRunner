@@ -8,6 +8,8 @@
     public static string MORE_PLATFORM_TAG = "MorePlatforms";
     public static string HEALTH_TAG = "Health";
     public static string MONSTER_TAG = "Monster";
+    public static string MONSTER_BULLET_TAG = "MonsterBullet";
+    public static string PLAYER_BULLET_TAG = "PlayerBullet";
 
     // Game object
     public static string LEVEL_GENERATOR_OBJ = "Level Generator";
