@@ -33,4 +33,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.Play(Tags.PLAYER_RUN);
     }
+
+    public void PlayDie()
+    {
+        anim.Play(Tags.PLAYER_DIE);
+    }
 }

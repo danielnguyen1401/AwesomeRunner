@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float radius = 0.5f;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] private GameObject smokePosition;
+    [SerializeField] private Button jumpButton;
+
     private Rigidbody myBody;
     private bool playerJumped;
     private bool isGrounded;
@@ -18,13 +21,17 @@ public class PlayerMovement : MonoBehaviour
     private bool gameStarted;
     private PlayerAnimation playerAnimation;
     private BGScroller bgScroller;
+    private PlayerHealthDamageShoot playerHealthDamageShoot;
 
     void Awake()
     {
         myBody = GetComponent<Rigidbody>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        playerHealthDamageShoot = GetComponent<PlayerHealthDamageShoot>();
         smokePosition.SetActive(false);
         bgScroller = GameObject.FindGameObjectWithTag(Tags.BACKGROUND_TAG).GetComponent<BGScroller>();
+
+        jumpButton.onClick.AddListener(() => Jump());
     }
 
     void Start()
@@ -47,9 +54,33 @@ public class PlayerMovement : MonoBehaviour
         myBody.velocity = new Vector3(movementSpeed, myBody.velocity.y, 0f);
     }
 
+    public void PlayerDied()
+    {
+        movementSpeed = 0;
+        playerJumped = false;
+        playerAnimation.PlayDie();
+    }
+
     void PlayerGrounded()
     {
         isGrounded = Physics.OverlapSphere(groundCheckPosition.position, radius, groundLayer).Length > 0;
+    }
+
+    void Jump()
+    {
+        if (!isGrounded && canJumpDouble)
+        {
+            playerAnimation.DidJump();
+            canJumpDouble = false;
+            myBody.AddForce(new Vector3(0, secondJumpPower, 0));
+        }
+        else if (isGrounded)
+        {
+            playerAnimation.DidJump();
+            myBody.AddForce(new Vector3(0, jumpPower, 0));
+            playerJumped = true;
+            canJumpDouble = true;
+        }
     }
 
     void PlayerJump()
@@ -73,15 +104,16 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         gameStarted = true;
-
+        playerHealthDamageShoot.canShoot = true;
+        GameplayController.instance.canCountScore = true;
         bgScroller.canScroll = true;
         smokePosition.SetActive(true);
         playerAnimation.PlayRun();
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter(Collision target)
     {
-        if (col.gameObject.tag == Tags.PLATFORM_TAG)
+        if (target.gameObject.tag == Tags.PLATFORM_TAG)
         {
             if (playerJumped)
             {

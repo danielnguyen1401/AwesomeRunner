@@ -12,7 +12,7 @@ public class Monster : MonoBehaviour
     private float movementSpeed;
     private bool isPlayerInRegion;
     private Transform playerTransform;
-    public bool canShoot;
+    public bool canShoot = true;
 
     private string FUNCTION_TO_INVOKE = "StartShooting";
 
@@ -72,8 +72,35 @@ public class Monster : MonoBehaviour
             bulletPos.x -= 1f;
 
             Transform newBullet = (Transform) Instantiate(bullet, bulletPos, Quaternion.identity);
-            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1500f);
+            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 800f);
             newBullet.parent = transform;
+        }
+    }
+
+    void MonsterDie()
+    {
+        Vector3 effectPos = transform.position;
+        effectPos.y += 2f;
+        Instantiate(deathFx, effectPos, Quaternion.identity);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider target)
+    {
+        if (target.tag == Tags.PLAYER_BULLET_TAG)
+        {
+            GameplayController.instance.IncrementScore(1);
+            MonsterDie();
+        }
+    }
+
+    void OnCollisionEnter(Collision target)
+    {
+        if (target.gameObject.tag == Tags.PLAYER_TAG)
+        {
+            MonsterDie();
+            // set active to false is lighter than Destroy()
+//            Destroy(target.gameObject);
         }
     }
 }
